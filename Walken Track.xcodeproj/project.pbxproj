@@ -8,17 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		C69FC5D02BE548DB002ABAF3 /* Walken_TrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */; };
-		C69FC5D22BE548DB002ABAF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69FC5D12BE548DB002ABAF3 /* ContentView.swift */; };
+		C69FC5D22BE548DB002ABAF3 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */; };
 		C69FC5D42BE548DD002ABAF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69FC5D32BE548DD002ABAF3 /* Assets.xcassets */; };
 		C69FC5D72BE548DD002ABAF3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69FC5D62BE548DD002ABAF3 /* Preview Assets.xcassets */; };
+		C6B86F802BE9C225007BC88B /* HealthDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B86F7F2BE9C225007BC88B /* HealthDataListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C69FC5CC2BE548DB002ABAF3 /* Walken Track.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Walken Track.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Walken_TrackApp.swift; sourceTree = "<group>"; };
-		C69FC5D12BE548DB002ABAF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		C69FC5D32BE548DD002ABAF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C69FC5D62BE548DD002ABAF3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C6B86F7F2BE9C225007BC88B /* HealthDataListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthDataListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +54,8 @@
 			isa = PBXGroup;
 			children = (
 				C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */,
-				C69FC5D12BE548DB002ABAF3 /* ContentView.swift */,
+				C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */,
+				C6B86F7F2BE9C225007BC88B /* HealthDataListView.swift */,
 				C69FC5D32BE548DD002ABAF3 /* Assets.xcassets */,
 				C69FC5D52BE548DD002ABAF3 /* Preview Content */,
 			);
@@ -137,7 +140,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C69FC5D22BE548DB002ABAF3 /* ContentView.swift in Sources */,
+				C6B86F802BE9C225007BC88B /* HealthDataListView.swift in Sources */,
+				C69FC5D22BE548DB002ABAF3 /* DashboardView.swift in Sources */,
 				C69FC5D02BE548DB002ABAF3 /* Walken_TrackApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

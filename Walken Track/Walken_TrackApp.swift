@@ -11,7 +11,7 @@ import SwiftUI
 struct Walken_TrackApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardView()
         }
     }
 }
