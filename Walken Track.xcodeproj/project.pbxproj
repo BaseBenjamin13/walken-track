@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C68887732BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68887722BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift */; };
 		C69FC5D02BE548DB002ABAF3 /* Walken_TrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */; };
 		C69FC5D22BE548DB002ABAF3 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */; };
 		C69FC5D42BE548DD002ABAF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69FC5D32BE548DD002ABAF3 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C68887722BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionPrimingView.swift; sourceTree = "<group>"; };
 		C69FC5CC2BE548DB002ABAF3 /* Walken Track.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Walken Track.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Walken_TrackApp.swift; sourceTree = "<group>"; };
 		C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			children = (
 				C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */,
 				C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */,
+				C68887722BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift */,
 				C6B86F7F2BE9C225007BC88B /* HealthDataListView.swift */,
 				C69FC5D32BE548DD002ABAF3 /* Assets.xcassets */,
 				C69FC5D52BE548DD002ABAF3 /* Preview Content */,
@@ -143,6 +146,7 @@
 				C6B86F802BE9C225007BC88B /* HealthDataListView.swift in Sources */,
 				C69FC5D22BE548DB002ABAF3 /* DashboardView.swift in Sources */,
 				C69FC5D02BE548DB002ABAF3 /* Walken_TrackApp.swift in Sources */,
+				C68887732BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
