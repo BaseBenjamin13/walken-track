@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C68887732BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68887722BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift */; };
+		C699937E2BEBF7DF00481C35 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C699937D2BEBF7DF00481C35 /* HealthKitManager.swift */; };
 		C69FC5D02BE548DB002ABAF3 /* Walken_TrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */; };
 		C69FC5D22BE548DB002ABAF3 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */; };
 		C69FC5D42BE548DD002ABAF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69FC5D32BE548DD002ABAF3 /* Assets.xcassets */; };
@@ -17,6 +18,8 @@
 
 /* Begin PBXFileReference section */
 		C68887722BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionPrimingView.swift; sourceTree = "<group>"; };
+		C699937C2BEBF5DF00481C35 /* Walken Track.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Walken Track.entitlements"; sourceTree = "<group>"; };
+		C699937D2BEBF7DF00481C35 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		C69FC5CC2BE548DB002ABAF3 /* Walken Track.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Walken Track.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Walken_TrackApp.swift; sourceTree = "<group>"; };
 		C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -55,10 +58,12 @@
 		C69FC5CE2BE548DB002ABAF3 /* Walken Track */ = {
 			isa = PBXGroup;
 			children = (
+				C699937C2BEBF5DF00481C35 /* Walken Track.entitlements */,
 				C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */,
 				C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */,
 				C68887722BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift */,
 				C6B86F7F2BE9C225007BC88B /* HealthDataListView.swift */,
+				C699937D2BEBF7DF00481C35 /* HealthKitManager.swift */,
 				C69FC5D32BE548DD002ABAF3 /* Assets.xcassets */,
 				C69FC5D52BE548DD002ABAF3 /* Preview Content */,
 			);
@@ -146,6 +151,7 @@
 				C6B86F802BE9C225007BC88B /* HealthDataListView.swift in Sources */,
 				C69FC5D22BE548DB002ABAF3 /* DashboardView.swift in Sources */,
 				C69FC5D02BE548DB002ABAF3 /* Walken_TrackApp.swift in Sources */,
+				C699937E2BEBF7DF00481C35 /* HealthKitManager.swift in Sources */,
 				C68887732BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,12 +283,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Walken Track/Walken Track.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Walken Track/Preview Content\"";
 				DEVELOPMENT_TEAM = Q25T636R4F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "The app shows your step and weight data in an interactive chart.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app allows you to add step and weight data to Apple Health.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -306,12 +315,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Walken Track/Walken Track.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Walken Track/Preview Content\"";
 				DEVELOPMENT_TEAM = Q25T636R4F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "The app shows your step and weight data in an interactive chart.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The app allows you to add step and weight data to Apple Health.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
