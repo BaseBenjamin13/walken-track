@@ -23,6 +23,8 @@ enum HealthMetricContext: CaseIterable, Identifiable {
 
 struct DashboardView: View {
     
+    @AppStorage("hasSeenPermissionPriming") private var hasSeenPersissionPriming = false
+    @State private var isShowingPermissionPrimingSheet = false
     @State private var selectedStat: HealthMetricContext = .steps
     var isSteps: Bool { selectedStat == .steps }
     
@@ -85,10 +87,22 @@ struct DashboardView: View {
                 }
             }
             .padding()
+            .onAppear {
+                isShowingPermissionPrimingSheet = !hasSeenPersissionPriming
+            }
             .navigationTitle("Dashboard")
             .navigationDestination(for: HealthMetricContext.self) {
                 HealthDataListView(metric: $0, isSteps: isSteps)
             }
+            .sheet(
+                isPresented: $isShowingPermissionPrimingSheet,
+                onDismiss: {
+                    
+                }, 
+                content: {
+                    HealthKitPermissionPrimingView(hasSeen: $hasSeenPersissionPriming)
+                }
+            )
         }
         .tint(isSteps ? .pink : .indigo)
     }
@@ -96,4 +110,5 @@ struct DashboardView: View {
 
 #Preview {
     DashboardView()
+        .environment(HealthKitManager())
 }
