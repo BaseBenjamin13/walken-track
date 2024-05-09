@@ -33,7 +33,7 @@ struct DashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-
+                    
                     Picker("Selected Stat", selection: $selectedStat) {
                         ForEach(HealthMetricContext.allCases) {
                             Text($0.title)
@@ -89,7 +89,9 @@ struct DashboardView: View {
             }
             .padding()
             .task {
-//                await hkManager.addSimulatorData()
+                //                await hkManager.addSimulatorData()
+                //                await hkManager.fetchStepCount()
+                //                await hkManager.fetchWeights()
                 isShowingPermissionPrimingSheet = !hasSeenPersissionPriming
             }
             .navigationTitle("Dashboard")
@@ -100,7 +102,7 @@ struct DashboardView: View {
                 isPresented: $isShowingPermissionPrimingSheet,
                 onDismiss: {
                     
-                }, 
+                },
                 content: {
                     HealthKitPermissionPrimingView(hasSeen: $hasSeenPersissionPriming)
                 }
