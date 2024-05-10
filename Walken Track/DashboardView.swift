@@ -23,6 +23,9 @@ enum HealthMetricContext: CaseIterable, Identifiable {
 
 struct DashboardView: View {
     
+    @Environment(HealthKitManager.self) private var hkManager
+    @AppStorage("hasSeenPermissionPriming") private var hasSeenPersissionPriming = false
+    @State private var isShowingPermissionPrimingSheet = false
     @State private var selectedStat: HealthMetricContext = .steps
     var isSteps: Bool { selectedStat == .steps }
     
@@ -30,7 +33,7 @@ struct DashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-
+                    
                     Picker("Selected Stat", selection: $selectedStat) {
                         ForEach(HealthMetricContext.allCases) {
                             Text($0.title)
@@ -85,10 +88,25 @@ struct DashboardView: View {
                 }
             }
             .padding()
+            .task {
+                //                await hkManager.addSimulatorData()
+                //                await hkManager.fetchStepCount()
+                //                await hkManager.fetchWeights()
+                isShowingPermissionPrimingSheet = !hasSeenPersissionPriming
+            }
             .navigationTitle("Dashboard")
             .navigationDestination(for: HealthMetricContext.self) {
                 HealthDataListView(metric: $0, isSteps: isSteps)
             }
+            .sheet(
+                isPresented: $isShowingPermissionPrimingSheet,
+                onDismiss: {
+                    
+                },
+                content: {
+                    HealthKitPermissionPrimingView(hasSeen: $hasSeenPersissionPriming)
+                }
+            )
         }
         .tint(isSteps ? .pink : .indigo)
     }
@@ -96,4 +114,5 @@ struct DashboardView: View {
 
 #Preview {
     DashboardView()
+        .environment(HealthKitManager())
 }
