@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C662B45C2BEDC8CC00E4D4AC /* HealthMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C662B45B2BEDC8CC00E4D4AC /* HealthMetric.swift */; };
 		C68887732BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68887722BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift */; };
+		C692F5432BEFE67400021E1D /* StepBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C692F5422BEFE67400021E1D /* StepBarChart.swift */; };
 		C699937E2BEBF7DF00481C35 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C699937D2BEBF7DF00481C35 /* HealthKitManager.swift */; };
 		C69FC5D02BE548DB002ABAF3 /* Walken_TrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */; };
 		C69FC5D22BE548DB002ABAF3 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		C662B45B2BEDC8CC00E4D4AC /* HealthMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthMetric.swift; sourceTree = "<group>"; };
 		C68887722BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitPermissionPrimingView.swift; sourceTree = "<group>"; };
+		C692F5422BEFE67400021E1D /* StepBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepBarChart.swift; sourceTree = "<group>"; };
 		C699937C2BEBF5DF00481C35 /* Walken Track.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Walken Track.entitlements"; sourceTree = "<group>"; };
 		C699937D2BEBF7DF00481C35 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		C69FC5CC2BE548DB002ABAF3 /* Walken Track.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Walken Track.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +43,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C692F5452BEFEC3400021E1D /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */,
+				C68887722BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift */,
+				C6B86F7F2BE9C225007BC88B /* HealthDataListView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		C692F5462BEFECA900021E1D /* Charts */ = {
+			isa = PBXGroup;
+			children = (
+				C692F5422BEFE67400021E1D /* StepBarChart.swift */,
+			);
+			path = Charts;
+			sourceTree = "<group>";
+		};
+		C692F5472BEFECC200021E1D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C662B45B2BEDC8CC00E4D4AC /* HealthMetric.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C692F5482BEFECD200021E1D /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C699937D2BEBF7DF00481C35 /* HealthKitManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		C69FC5C32BE548DB002ABAF3 = {
 			isa = PBXGroup;
 			children = (
@@ -62,11 +98,10 @@
 			children = (
 				C699937C2BEBF5DF00481C35 /* Walken Track.entitlements */,
 				C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */,
-				C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */,
-				C68887722BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift */,
-				C6B86F7F2BE9C225007BC88B /* HealthDataListView.swift */,
-				C699937D2BEBF7DF00481C35 /* HealthKitManager.swift */,
-				C662B45B2BEDC8CC00E4D4AC /* HealthMetric.swift */,
+				C692F5482BEFECD200021E1D /* Managers */,
+				C692F5472BEFECC200021E1D /* Models */,
+				C692F5462BEFECA900021E1D /* Charts */,
+				C692F5452BEFEC3400021E1D /* Screens */,
 				C69FC5D32BE548DD002ABAF3 /* Assets.xcassets */,
 				C69FC5D52BE548DD002ABAF3 /* Preview Content */,
 			);
@@ -153,6 +188,7 @@
 			files = (
 				C6B86F802BE9C225007BC88B /* HealthDataListView.swift in Sources */,
 				C69FC5D22BE548DB002ABAF3 /* DashboardView.swift in Sources */,
+				C692F5432BEFE67400021E1D /* StepBarChart.swift in Sources */,
 				C69FC5D02BE548DB002ABAF3 /* Walken_TrackApp.swift in Sources */,
 				C699937E2BEBF7DF00481C35 /* HealthKitManager.swift in Sources */,
 				C68887732BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift in Sources */,
