@@ -14,6 +14,7 @@
 		C692F54C2BF006F800021E1D /* ChartDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C692F54B2BF006F800021E1D /* ChartDataTypes.swift */; };
 		C692F54F2BF007A400021E1D /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C692F54E2BF007A400021E1D /* Date+Ext.swift */; };
 		C692F5522BF00DC200021E1D /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = C692F5512BF00DC200021E1D /* Algorithms */; };
+		C692F5542BF0127B00021E1D /* StepPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C692F5532BF0127B00021E1D /* StepPieChart.swift */; };
 		C699937E2BEBF7DF00481C35 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C699937D2BEBF7DF00481C35 /* HealthKitManager.swift */; };
 		C69FC5D02BE548DB002ABAF3 /* Walken_TrackApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69FC5CF2BE548DB002ABAF3 /* Walken_TrackApp.swift */; };
 		C69FC5D22BE548DB002ABAF3 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69FC5D12BE548DB002ABAF3 /* DashboardView.swift */; };
@@ -29,6 +30,7 @@
 		C692F5492BF006C200021E1D /* ChartMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMath.swift; sourceTree = "<group>"; };
 		C692F54B2BF006F800021E1D /* ChartDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataTypes.swift; sourceTree = "<group>"; };
 		C692F54E2BF007A400021E1D /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		C692F5532BF0127B00021E1D /* StepPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepPieChart.swift; sourceTree = "<group>"; };
 		C699937C2BEBF5DF00481C35 /* Walken Track.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Walken Track.entitlements"; sourceTree = "<group>"; };
 		C699937D2BEBF7DF00481C35 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		C69FC5CC2BE548DB002ABAF3 /* Walken Track.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Walken Track.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +69,7 @@
 				C692F5422BEFE67400021E1D /* StepBarChart.swift */,
 				C692F5492BF006C200021E1D /* ChartMath.swift */,
 				C692F54B2BF006F800021E1D /* ChartDataTypes.swift */,
+				C692F5532BF0127B00021E1D /* StepPieChart.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				C692F54A2BF006C200021E1D /* ChartMath.swift in Sources */,
 				C662B45C2BEDC8CC00E4D4AC /* HealthMetric.swift in Sources */,
 				C692F54C2BF006F800021E1D /* ChartDataTypes.swift in Sources */,
+				C692F5542BF0127B00021E1D /* StepPieChart.swift in Sources */,
 				C692F54F2BF007A400021E1D /* Date+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

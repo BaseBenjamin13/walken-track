@@ -87,6 +87,7 @@ struct StepBarChart: View {
                     .opacity(rawSelectedDate == nil ||
                         steps.date == selectedHealthMetric?.date ? 1.0 : 0.4
                     )
+                    .cornerRadius(8)
                 }
             }
             .frame(height: 150)
