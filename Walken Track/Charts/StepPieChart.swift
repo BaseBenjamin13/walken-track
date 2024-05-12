@@ -15,7 +15,7 @@ struct StepPieChart: View {
     var chartData: [WeekdayChartData]
     
     var selectedWeekday: WeekdayChartData? {
-        guard let rawSelectedChartValue else { return nil }
+        guard let rawSelectedChartValue else { return chartData.first }
         var total = 0.0
         return chartData.first {
             total += $0.value
