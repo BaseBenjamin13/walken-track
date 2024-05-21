@@ -108,11 +108,9 @@ struct StepBarChart: View {
                     .foregroundStyle(.pink)
                 }
             }
-            
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
-     
     }
     
     var annotationView: some View {
