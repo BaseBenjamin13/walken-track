@@ -9,12 +9,19 @@ import SwiftUI
 import Charts
 
 struct WeightLineChart: View {
+    @State private var rawSelectedDate: Date?
     
     var selectedStat: HealthMetricContext
     var chartData: [HealthMetric]
     
     var minValue: Double {
         chartData.map { $0.value }.min() ?? 0
+    }
+    var selectedHealthMetric: HealthMetric? {
+        guard let rawSelectedDate else { return nil}
+        return chartData.first {
+            Calendar.current.isDate(rawSelectedDate, inSameDayAs: $0.date)
+        }
     }
     
     var body: some View {
@@ -41,6 +48,21 @@ struct WeightLineChart: View {
             .padding(.bottom, 12)
             
             Chart {
+                if let selectedHealthMetric {
+                    RuleMark(x: .value("Selected Metric", selectedHealthMetric.date, unit: .day))
+                        .foregroundStyle(Color.secondary.opacity(0.4))
+                        .offset(y: -10)
+                        .annotation(
+                            position: .top,
+                            spacing: 0,
+                            overflowResolution: .init(
+                                x: .fit(to: .chart),
+                                y: .disabled)
+                        ) {
+                            annotationView
+                        }
+                }
+                
                 // Goal line should not be hard coded. get goal from user input save as user default and use in place of 155
                 RuleMark(y: .value("Goal", 155))
                     .foregroundStyle(.mint)
@@ -67,6 +89,7 @@ struct WeightLineChart: View {
                 }
             }
             .frame(height: 150)
+            .chartXSelection(value: $rawSelectedDate)
             .chartYScale(domain: .automatic(includesZero: false))
             .chartXAxis {
                 AxisMarks {
@@ -84,6 +107,30 @@ struct WeightLineChart: View {
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
+    }
+    
+    
+    var annotationView: some View {
+        VStack(alignment: .leading) {
+            Text(
+                selectedHealthMetric?.date ?? .now,
+                format: .dateTime.weekday(.abbreviated).month(.abbreviated).day()
+            )
+            .font(.footnote.bold())
+            .foregroundStyle(.secondary)
+            Text(
+                selectedHealthMetric?.value ?? 0,
+                format: .number.precision(.fractionLength(1))
+            )
+                .fontWeight(.heavy)
+                .foregroundStyle(.indigo)
+        }
+        .padding(12)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color(.secondarySystemBackground))
+                .shadow(color: .secondary.opacity(0.4), radius: 4, x: 4, y: 4)
+        )
     }
 }
 
