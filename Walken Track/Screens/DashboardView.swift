@@ -60,7 +60,7 @@ struct DashboardView: View {
                 isShowingPermissionPrimingSheet = !hasSeenPersissionPriming
                 await hkManager.fetchStepCount()
                 await hkManager.fetchWeights()
-                ChartMath.averageWeekdayCount(for: hkManager.stepData)
+//                ChartMath.averageWeekdayCount(for: hkManager.stepData)
             }
             .navigationTitle("Dashboard")
             .navigationDestination(for: HealthMetricContext.self) {
