@@ -1,31 +1,27 @@
 //
-//  StepBarChart.swift
+//  WeightLineChart.swift
 //  Walken Track
 //
-//  Created by Ben Morgiewicz on 5/11/24.
+//  Created by Ben Morgiewicz on 5/19/24.
 //
 
 import SwiftUI
 import Charts
 
-struct StepBarChart: View {
-    
+struct WeightLineChart: View {
     @State private var rawSelectedDate: Date?
     
     var selectedStat: HealthMetricContext
     var chartData: [HealthMetric]
     
+    var minValue: Double {
+        chartData.map { $0.value }.min() ?? 0
+    }
     var selectedHealthMetric: HealthMetric? {
-        guard let rawSelectedDate else { return nil }
+        guard let rawSelectedDate else { return nil}
         return chartData.first {
             Calendar.current.isDate(rawSelectedDate, inSameDayAs: $0.date)
         }
-    }
-    
-    var avgStepCount: Double {
-        guard !chartData.isEmpty else { return 0 }
-        let totalSteps = chartData.reduce(0) { $0 + $1.value }
-        return totalSteps/Double(chartData.count)
     }
     
     var body: some View {
@@ -33,16 +29,15 @@ struct StepBarChart: View {
             NavigationLink(value: selectedStat) {
                 HStack {
                     VStack(alignment: .leading) {
-                        Label("Steps", systemImage: "figure.walk")
+                        Label("Weight", systemImage: "figure")
                             .font(.title3.bold())
-//                                        .foregroundStyle(.pink)
                             .foregroundStyle(.linearGradient(
-                                colors: [.black.opacity(0.7), .pink, .pink],
+                                colors: [.black.opacity(0.7), .indigo, .indigo],
                                 startPoint: .bottom,
                                 endPoint: .top
                             ))
                         
-                        Text("Avg: \(Int(avgStepCount)) Steps")
+                        Text("Avg 165 lbs")
                             .font(.caption)
                     }
                     Spacer()
@@ -68,50 +63,52 @@ struct StepBarChart: View {
                         }
                 }
                 
-                RuleMark(y: .value("Average", avgStepCount))
-                    .foregroundStyle(Color.secondary)
+                // Goal line should not be hard coded. get goal from user input save as user default and use in place of 155
+                RuleMark(y: .value("Goal", 155))
+                    .foregroundStyle(.mint)
                     .lineStyle(.init(lineWidth: 1, dash: [5]))
                 
-//                            ForEach(HealthMetric.mockData) { steps in
-                ForEach(chartData) { steps in
-                    BarMark(
-                        x: .value("Date", steps.date, unit: .day),
-                        y: .value("Steps", steps.value)
+                ForEach(chartData) { weight in
+                    AreaMark(
+                        x: .value("Day", weight.date, unit: .day),
+                        yStart: .value("Value", weight.value),
+                        yEnd: .value("Min Value", minValue)
                     )
-//                                .foregroundStyle(Color.pink.gradient)
-                    .foregroundStyle(.linearGradient(
-                        colors: [.black.opacity(0.7), .pink, .pink, .pink],
-                        startPoint: .bottom,
-                        endPoint: .top
-                    ))
-                    .opacity(rawSelectedDate == nil ||
-                        steps.date == selectedHealthMetric?.date ? 1.0 : 0.4
+                    .foregroundStyle(Gradient(colors: [
+                        .indigo.opacity(0.5),.indigo.opacity(0.3), .clear
+                    ]))
+                    .interpolationMethod(.catmullRom)
+                    
+                    LineMark(
+                        x: .value("Day", weight.date, unit: .day),
+                        y: .value("Value", weight.value)
                     )
-                    .cornerRadius(8)
+                    .foregroundStyle(.indigo)
+                    .interpolationMethod(.catmullRom)
+                    .symbol(.circle)
                 }
             }
             .frame(height: 150)
-            .chartXSelection(value: $rawSelectedDate.animation(.easeInOut))
+            .chartXSelection(value: $rawSelectedDate)
+            .chartYScale(domain: .automatic(includesZero: false))
             .chartXAxis {
                 AxisMarks {
                     AxisValueLabel(format: .dateTime.month(.defaultDigits).day())
-                    .foregroundStyle(.pink)
                 }
             }
             .chartYAxis {
                 AxisMarks { value in
                     AxisGridLine()
                         .foregroundStyle(Color.secondary.opacity(0.3))
-                    
-                    AxisValueLabel((
-                        value.as(Double.self) ?? 0).formatted(.number.notation(.compactName)))
-                    .foregroundStyle(.pink)
+                    AxisValueLabel()
+                    .foregroundStyle(.indigo)
                 }
             }
         }
         .padding()
         .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
     }
+    
     
     var annotationView: some View {
         VStack(alignment: .leading) {
@@ -123,10 +120,10 @@ struct StepBarChart: View {
             .foregroundStyle(.secondary)
             Text(
                 selectedHealthMetric?.value ?? 0,
-                format: .number.precision(.fractionLength(0))
+                format: .number.precision(.fractionLength(1))
             )
                 .fontWeight(.heavy)
-                .foregroundStyle(.pink)
+                .foregroundStyle(.indigo)
         }
         .padding(12)
         .background(
@@ -135,9 +132,8 @@ struct StepBarChart: View {
                 .shadow(color: .secondary.opacity(0.4), radius: 4, x: 4, y: 4)
         )
     }
-    
 }
 
 #Preview {
-    StepBarChart(selectedStat: .steps, chartData: MockData.steps)
+    WeightLineChart(selectedStat: .weight, chartData: MockData.weights)
 }

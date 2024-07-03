@@ -43,11 +43,16 @@ struct DashboardView: View {
                     }
                     .pickerStyle(.segmented)
                     
-                    StepBarChart(selectedStat: selectedStat, chartData: hkManager.stepData)
-
-                    StepPieChart(
-                        chartData: ChartMath.averageWeekdayCount(for: hkManager.stepData)
-                    )
+                    switch selectedStat {
+                    case .steps:
+                        StepBarChart(selectedStat: selectedStat, chartData: hkManager.stepData)
+                        StepPieChart(
+                            chartData: ChartMath.averageWeekdayCount(for: hkManager.stepData)
+                        )
+                    case .weight:
+                        WeightLineChart(selectedStat: selectedStat, chartData: hkManager.weightData)
+                        WeightDiffBarChart(chartData: ChartMath.averageDailyWeightDiffs(for: hkManager.weightDiffData))
+                    }
                 }
             }
             .padding()
@@ -55,9 +60,9 @@ struct DashboardView: View {
 //                await hkManager.addSimulatorData()
                 isShowingPermissionPrimingSheet = !hasSeenPersissionPriming
                 await hkManager.fetchStepCount()
-                ChartMath.averageWeekdayCount(for: hkManager.stepData)
-                //                await hkManager.fetchWeights()
-                
+                await hkManager.fetchWeights()
+                await hkManager.fetchWeightForDifferentials()
+//                ChartMath.averageWeekdayCount(for: hkManager.stepData)
             }
             .navigationTitle("Dashboard")
             .navigationDestination(for: HealthMetricContext.self) {
