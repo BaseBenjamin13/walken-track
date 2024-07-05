@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HealthDataListView: View {
-    
+    @Environment(HealthKitManager.self) private var hkManager
     @State private var isShowingAddData = false
     @State private var addDataDate: Date = .now
     @State private var valueToAdd: String = ""
@@ -16,13 +16,17 @@ struct HealthDataListView: View {
     var metric: HealthMetricContext
     var isSteps: Bool
     
+    var listData: [HealthMetric] {
+        isSteps ? hkManager.stepData : hkManager.weightData
+    }
+    
     var body: some View {
-        List(0..<28) { i in
+        List(listData.reversed()) { data in
             HStack {
-                Text(Date(), format: .dateTime.month().day().year())
+                Text(data.date, format: .dateTime.month().day().year())
                 Spacer()
                 Text(
-                    10000,
+                    data.value,
                     format: .number.precision(.fractionLength(isSteps ? 0 : 1))
                 )
             }
@@ -55,7 +59,18 @@ struct HealthDataListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add Data") {
-                        // Add Data Action
+                        Task {
+                            if isSteps {
+                                await hkManager.addStepData(for: addDataDate, value: Double(valueToAdd)!)
+                                await hkManager.fetchStepCount()
+                                isShowingAddData = false
+                            } else {
+                                await hkManager.addWeightData(for: addDataDate, value: Double(valueToAdd)!)
+                                await hkManager.fetchWeights()
+                                await hkManager.fetchWeightForDifferentials()
+                                isShowingAddData = false
+                            }
+                        }
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {
@@ -72,5 +87,6 @@ struct HealthDataListView: View {
 #Preview {
     NavigationStack {
         HealthDataListView(metric: .steps, isSteps: true)
+            .environment(HealthKitManager())
     }
 }

@@ -114,4 +114,15 @@ import Observation
         try! await store.save(mockSamples)
         print("Dummy Data ✅")
     }
+    
+    func addStepData(for date: Date, value: Double) async {
+        let stepQuantity = HKQuantity(unit: .count(), doubleValue: value)
+        let stepSample = HKQuantitySample(type: HKQuantityType(.stepCount), quantity: stepQuantity, start: date, end: date)
+        try! await store.save(stepSample)
+    }
+    func addWeightData(for date: Date, value: Double) async {
+        let weightQuantity = HKQuantity(unit: .pound(), doubleValue: value)
+        let weightSample = HKQuantitySample(type: HKQuantityType(.bodyMass), quantity: weightQuantity, start: date, end: date)
+        try! await store.save(weightSample)
+    }
 }
