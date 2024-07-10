@@ -25,9 +25,10 @@ enum HealthMetricContext: CaseIterable, Identifiable {
 struct DashboardView: View {
     
     @Environment(HealthKitManager.self) private var hkManager
-    @AppStorage("hasSeenPermissionPriming") private var hasSeenPersissionPriming = false
     @State private var isShowingPermissionPrimingSheet = false
     @State private var selectedStat: HealthMetricContext = .steps
+    @State private var isShowingAlert = false
+    @State private var fetchError: STError = .noData
     var isSteps: Bool { selectedStat == .steps }
 
     
@@ -58,15 +59,24 @@ struct DashboardView: View {
             .padding()
             .task {
 //                await hkManager.addSimulatorData()
-                isShowingPermissionPrimingSheet = !hasSeenPersissionPriming
-                await hkManager.fetchStepCount()
-                await hkManager.fetchWeights()
-                await hkManager.fetchWeightForDifferentials()
+                do {
+                    try await hkManager.fetchStepCount()
+                    try await hkManager.fetchWeights()
+                    try await hkManager.fetchWeightForDifferentials()
+                } catch STError.authNotDetermined {
+                    isShowingPermissionPrimingSheet = true
+                } catch STError.noData {
+                    fetchError = .noData
+                    isShowingAlert = true
+                } catch {
+                    fetchError = .unableToCompleteRequest
+                    isShowingAlert = true
+                }
 //                ChartMath.averageWeekdayCount(for: hkManager.stepData)
             }
             .navigationTitle("Dashboard")
             .navigationDestination(for: HealthMetricContext.self) {
-                HealthDataListView(metric: $0, isSteps: isSteps)
+                HealthDataListView(metric: $0, isSteps: isSteps, isShowingPermissionPriming: $isShowingPermissionPrimingSheet)
             }
             .sheet(
                 isPresented: $isShowingPermissionPrimingSheet,
@@ -74,9 +84,14 @@ struct DashboardView: View {
                     
                 },
                 content: {
-                    HealthKitPermissionPrimingView(hasSeen: $hasSeenPersissionPriming)
+                    HealthKitPermissionPrimingView()
                 }
             )
+            .alert(isPresented: $isShowingAlert, error: fetchError) { fetchError in
+                // Action
+            } message: { fetchError in
+                Text(fetchError.failureReason ?? "Failed to Complete Request")
+            }
         }
         .tint(isSteps ? .pink : .indigo)
     }
