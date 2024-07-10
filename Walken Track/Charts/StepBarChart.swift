@@ -36,7 +36,6 @@ struct StepBarChart: View {
                     VStack(alignment: .leading) {
                         Label("Steps", systemImage: "figure.walk")
                             .font(.title3.bold())
-//                                        .foregroundStyle(.pink)
                             .foregroundStyle(.linearGradient(
                                 colors: [.black.opacity(0.7), .pink, .pink],
                                 startPoint: .bottom,

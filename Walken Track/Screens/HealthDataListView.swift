@@ -72,6 +72,8 @@ struct HealthDataListView: View {
                         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                     }
                     Button("Cancel", role: .cancel) {}
+                case .invalidValue:
+                    Button("OK", role: .cancel) {}
                 }
             } message: { writeError in
                 Text(writeError.failureReason ?? "Failed to add Data.")
@@ -79,12 +81,18 @@ struct HealthDataListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add Data") {
+                        guard let value = Double(valueToAdd) else {
+                            writeError = .invalidValue
+                            isShowingAlert = true
+                            valueToAdd = ""
+                            return
+                        }
                         Task {
                             if isSteps {
                                 do {
                                     try await hkManager.addStepData(
                                         for: addDataDate,
-                                        value: Double(valueToAdd)!
+                                        value: value
                                     )
                                     try await hkManager.fetchStepCount()
                                     isShowingAddData = false
@@ -100,7 +108,7 @@ struct HealthDataListView: View {
                                 do {
                                     try await hkManager.addWeightData(
                                         for: addDataDate,
-                                        value: Double(valueToAdd)!
+                                        value: value
                                     )
                                     try await hkManager.fetchWeights()
                                     try await hkManager.fetchWeightForDifferentials()
