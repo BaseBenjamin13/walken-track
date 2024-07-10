@@ -13,62 +13,32 @@ struct StepBarChart: View {
     @State private var rawSelectedDate: Date?
     @State private var selectedDay: Date?
     
-    var selectedStat: HealthMetricContext
-    var chartData: [HealthMetric]
+    var chartData: [DateValueChartData]
     
-    var selectedHealthMetric: HealthMetric? {
-        guard let rawSelectedDate else { return nil }
-        return chartData.first {
-            Calendar.current.isDate(rawSelectedDate, inSameDayAs: $0.date)
-        }
+    var selectedData: DateValueChartData? {
+        ChartHelper.parseSelectedData(from: chartData, in: rawSelectedDate)
     }
-    
     var avgStepCount: Double {
-        guard !chartData.isEmpty else { return 0 }
-        let totalSteps = chartData.reduce(0) { $0 + $1.value }
-        return totalSteps/Double(chartData.count)
+        ChartHelper.averageValue(for: chartData)
     }
     
     var body: some View {
-        VStack {
-            NavigationLink(value: selectedStat) {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Label("Steps", systemImage: "figure.walk")
-                            .font(.title3.bold())
-                            .foregroundStyle(.linearGradient(
-                                colors: [.black.opacity(0.7), .pink, .pink],
-                                startPoint: .bottom,
-                                endPoint: .top
-                            ))
-                        
-                        Text("Avg: \(Int(avgStepCount)) Steps")
-                            .font(.caption)
-                    }
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                }
-            }
-            .foregroundStyle(.secondary)
-            .padding(.bottom, 12)
+        let config = ChartContainerConfig(
+            title: "Steps",
+            symbol: "figure.walk",
+            subtitle: "Avg: \(Int(avgStepCount)) Steps",
+            context: .steps,
+            isNav: true
+        )
+        
+        ChartContainer(config: config) {
             
             if chartData.isEmpty {
                 ChartEmptyView(systemImageName: "chart.bar", title: "No Data", description: "There is no step data from the Health App.")
             } else {
                 Chart {
-                    if let selectedHealthMetric {
-                        RuleMark(x: .value("Selected Metric", selectedHealthMetric.date, unit: .day))
-                            .foregroundStyle(Color.secondary.opacity(0.4))
-                            .offset(y: -10)
-                            .annotation(
-                                position: .top,
-                                spacing: 0,
-                                overflowResolution: .init(
-                                    x: .fit(to: .chart),
-                                    y: .disabled)
-                            ) {
-                                annotationView
-                            }
+                    if let selectedData {
+                        ChartAnnotationView(data: selectedData, context: .steps)
                     }
                     
                     RuleMark(y: .value("Average", avgStepCount))
@@ -85,7 +55,7 @@ struct StepBarChart: View {
                             endPoint: .top
                         ))
                         .opacity(rawSelectedDate == nil ||
-                            steps.date == selectedHealthMetric?.date ? 1.0 : 0.4
+                            steps.date == selectedData?.date ? 1.0 : 0.4
                         )
                         .cornerRadius(8)
                     }
@@ -110,8 +80,6 @@ struct StepBarChart: View {
                 }
             }
         }
-        .padding()
-        .background(RoundedRectangle(cornerRadius: 12).fill(Color(.secondarySystemBackground)))
         .sensoryFeedback(.selection, trigger: selectedDay)
         .onChange(of: rawSelectedDate) { oldValue, newValue in
             if oldValue?.weekdayInt != newValue?.weekdayInt {
@@ -120,31 +88,8 @@ struct StepBarChart: View {
         }
     }
     
-    var annotationView: some View {
-        VStack(alignment: .leading) {
-            Text(
-                selectedHealthMetric?.date ?? .now,
-                format: .dateTime.weekday(.abbreviated).month(.abbreviated).day()
-            )
-            .font(.footnote.bold())
-            .foregroundStyle(.secondary)
-            Text(
-                selectedHealthMetric?.value ?? 0,
-                format: .number.precision(.fractionLength(0))
-            )
-                .fontWeight(.heavy)
-                .foregroundStyle(.pink)
-        }
-        .padding(12)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color(.secondarySystemBackground))
-                .shadow(color: .secondary.opacity(0.4), radius: 4, x: 4, y: 4)
-        )
-    }
-    
 }
 
 #Preview {
-    StepBarChart(selectedStat: .steps, chartData: MockData.steps)
+    StepBarChart(chartData: ChartHelper.convert(data: MockData.steps))
 }
