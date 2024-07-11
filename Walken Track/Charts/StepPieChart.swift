@@ -13,9 +13,9 @@ struct StepPieChart: View {
     @State private var rawSelectedChartValue: Double? = 0
     @State private var selectedDay: Date?
     
-    var chartData: [WeekdayChartData]
+    var chartData: [DateValueChartData]
     
-    var selectedWeekday: WeekdayChartData? {
+    var selectedWeekday: DateValueChartData? {
         guard let rawSelectedChartValue else { return chartData.first }
         var total = 0.0
         return chartData.first {
@@ -25,7 +25,15 @@ struct StepPieChart: View {
     }
     
     var body: some View {
-        ChartContainer(title: "Averages", symbol: "calendar", subtitle: "Last 28 Days", context: .steps, isNav: false) {
+        let config = ChartContainerConfig(
+            title: "Averages",
+            symbol: "calendar",
+            subtitle: "Last 28 Days",
+            context: .steps,
+            isNav: false
+        )
+        
+        ChartContainer(config: config) {
 
             if chartData.isEmpty {
                 ChartEmptyView(systemImageName: "chart.pie", title: "No Data", description: "There is no step data from the Health App.")
