@@ -17,6 +17,7 @@ struct ChartContainerConfig {
 
 struct ChartContainer<Content: View>: View {
     let config: ChartContainerConfig
+
     @ViewBuilder var content : () -> Content
     
     var body: some View {
@@ -57,7 +58,6 @@ struct ChartContainer<Content: View>: View {
                     startPoint: .bottom,
                     endPoint: .top
                 ))
-            
             Text(config.subtitle)
                 .font(.caption)
         }
