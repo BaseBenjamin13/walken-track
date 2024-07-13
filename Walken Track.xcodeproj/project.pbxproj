@@ -16,6 +16,7 @@
 		C692F54F2BF007A400021E1D /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C692F54E2BF007A400021E1D /* Date+Ext.swift */; };
 		C692F5522BF00DC200021E1D /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = C692F5512BF00DC200021E1D /* Algorithms */; };
 		C692F5542BF0127B00021E1D /* StepPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C692F5532BF0127B00021E1D /* StepPieChart.swift */; };
+		C693807C2C4212CD00C677B6 /* STError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C693807B2C4212CD00C677B6 /* STError.swift */; };
 		C69424522C3DE6B80070609A /* ChartEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69424512C3DE6B80070609A /* ChartEmptyView.swift */; };
 		C69424542C3F01470070609A /* ChartContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69424532C3F01470070609A /* ChartContainer.swift */; };
 		C699937E2BEBF7DF00481C35 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C699937D2BEBF7DF00481C35 /* HealthKitManager.swift */; };
@@ -39,6 +40,7 @@
 		C692F54B2BF006F800021E1D /* ChartDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDataTypes.swift; sourceTree = "<group>"; };
 		C692F54E2BF007A400021E1D /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		C692F5532BF0127B00021E1D /* StepPieChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepPieChart.swift; sourceTree = "<group>"; };
+		C693807B2C4212CD00C677B6 /* STError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STError.swift; sourceTree = "<group>"; };
 		C69424512C3DE6B80070609A /* ChartEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartEmptyView.swift; sourceTree = "<group>"; };
 		C69424532C3F01470070609A /* ChartContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartContainer.swift; sourceTree = "<group>"; };
 		C699937C2BEBF5DF00481C35 /* Walken Track.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Walken Track.entitlements"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				C692F54D2BF0079500021E1D /* Extensions */,
 				C69EC0642BFAB02D00F156B8 /* MockData.swift */,
+				C693807B2C4212CD00C677B6 /* STError.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				C69EC0652BFAB02D00F156B8 /* MockData.swift in Sources */,
 				C69424522C3DE6B80070609A /* ChartEmptyView.swift in Sources */,
 				C69FC5D02BE548DB002ABAF3 /* Walken_TrackApp.swift in Sources */,
+				C693807C2C4212CD00C677B6 /* STError.swift in Sources */,
 				C699937E2BEBF7DF00481C35 /* HealthKitManager.swift in Sources */,
 				C68887732BEAC4B100311DB4 /* HealthKitPermissionPrimingView.swift in Sources */,
 				C6A937EA2C40555200E566E4 /* ChartHelper.swift in Sources */,
