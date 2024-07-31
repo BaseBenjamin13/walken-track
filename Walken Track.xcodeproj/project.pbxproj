@@ -72,8 +72,8 @@
 		C68130C02C43275C0007A737 /* Charts */ = {
 			isa = PBXGroup;
 			children = (
-				C692F5532BF0127B00021E1D /* StepPieChart.swift */,
 				C692F5422BEFE67400021E1D /* StepBarChart.swift */,
+				C692F5532BF0127B00021E1D /* StepPieChart.swift */,
 				C69EC0612BFAAC7500F156B8 /* WeightLineChart.swift */,
 				C68E86BB2C35F3A30078B4FB /* WeightDiffBarChart.swift */,
 			);

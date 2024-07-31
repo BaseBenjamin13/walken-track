@@ -17,24 +17,16 @@ struct WeightLineChart: View {
     var minValue: Double {
         chartData.map { $0.value }.min() ?? 0
     }
-    var averageWeightText: String {
-        let average = chartData.map { $0.value }.average
-        return "Avg \(average.formatted(.number.precision(.fractionLength(1)))) lbs"
+    var averageWeight: Double {
+        chartData.map { $0.value }.average
     }
     var selectedData: DateValueChartData? {
         ChartHelper.parseSelectedData(from: chartData, in: rawSelectedDate)
     }
     
     var body: some View {
-        let config = ChartContainerConfig(
-            title: "Weight",
-            symbol: "figure",
-            subtitle: averageWeightText,
-            context: .weight,
-            isNav: true
-        )
         
-        ChartContainer(config: config) {
+        ChartContainer(chartType: .weightLine(average: averageWeight)) {
             Chart {
                 if let selectedData {
                     ChartAnnotationView(data: selectedData, context: .weight)
