@@ -33,7 +33,9 @@ struct HealthDataListView: View {
                     )
                 } label: {
                     Text(data.date, format: .dateTime.month().day().year())
+                        .accessibilityLabel(data.date.accessibilityDate)
                 }
+                .accessibilityElement(children: .combine)
             }
         }
         .navigationTitle(metric.title)

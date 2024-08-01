@@ -20,7 +20,6 @@ struct WeightDiffBarChart: View {
     }
     
     var body: some View {
-        
         ChartContainer(chartType: .weightDiffBar) {
             Chart {
                 if let selectedData {
@@ -28,15 +27,19 @@ struct WeightDiffBarChart: View {
                 }
                 
                 ForEach(chartData) { weightDiff in
-                    BarMark(
-                        x: .value("Date", weightDiff.date, unit: .day),
-                        y: .value("Weight Diff", weightDiff.value)
-                    )
-                    .foregroundStyle(weightDiff.value >= 0 ? Color.red.gradient : Color.indigo.gradient)
-                    .opacity(rawSelectedDate == nil ||
-                             weightDiff.date == selectedData?.date ? 1.0 : 0.4
-                    )
-                    .cornerRadius(8)
+                    Plot {
+                        BarMark(
+                            x: .value("Date", weightDiff.date, unit: .day),
+                            y: .value("Weight Diff", weightDiff.value)
+                        )
+                        .foregroundStyle(weightDiff.value >= 0 ? Color.red.gradient : Color.indigo.gradient)
+                        .opacity(rawSelectedDate == nil ||
+                                 weightDiff.date == selectedData?.date ? 1.0 : 0.4
+                        )
+                        .cornerRadius(8)
+                    }
+                    .accessibilityLabel(weightDiff.date.weekdayTitle)
+                    .accessibilityValue("\(weightDiff.value.formatted(.number.precision(.fractionLength(1)).sign(strategy: .always()))) pounds")
                 }
             }
             .frame(height: 150)
@@ -68,6 +71,27 @@ struct WeightDiffBarChart: View {
         }
     }
 }
+
+//struct WeightBarMark: View {
+//    var weightDiff: DateValueChartData
+//    var rawSelectedDate: Date?
+//    var selectedData: DateValueChartData?
+//    var body: some View {
+//        Plot {
+//            BarMark(
+//                x: .value("Date", weightDiff.date, unit: .day),
+//                y: .value("Weight Diff", weightDiff.value)
+//            )
+//            .foregroundStyle(weightDiff.value >= 0 ? Color.red.gradient : Color.indigo.gradient)
+//            .opacity(rawSelectedDate == nil ||
+//                     weightDiff.date == selectedData?.date ? 1.0 : 0.4
+//            )
+//            .cornerRadius(8)
+//        }
+//        .accessibilityLabel(weightDiff.date.weekdayTitle)
+//        .accessibilityValue("\(weightDiff.value.formatted(.number.precision(.fractionLength(1)).sign(strategy: .always()))) pounds")
+//    }
+//}
 
 #Preview {
     WeightDiffBarChart(chartData: []) //chartData: MockData.weightDiffs
