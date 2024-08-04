@@ -8,23 +8,34 @@
 import SwiftUI
 
 struct HealthDataListView: View {
-    
+    @Environment(HealthKitManager.self) private var hkManager
     @State private var isShowingAddData = false
     @State private var addDataDate: Date = .now
     @State private var valueToAdd: String = ""
+    @State private var isShowingAlert = false
+    @State private var writeError: STError = .noData
     
     var metric: HealthMetricContext
     var isSteps: Bool
+    @Binding var isShowingPermissionPriming: Bool
+    
+    var listData: [HealthMetric] {
+        isSteps ? hkManager.stepData : hkManager.weightData
+    }
     
     var body: some View {
-        List(0..<28) { i in
+        List(listData.reversed()) { data in
             HStack {
-                Text(Date(), format: .dateTime.month().day().year())
-                Spacer()
-                Text(
-                    10000,
-                    format: .number.precision(.fractionLength(isSteps ? 0 : 1))
-                )
+                LabeledContent {
+                    Text(
+                        data.value,
+                        format: .number.precision(.fractionLength(isSteps ? 0 : 1))
+                    )
+                } label: {
+                    Text(data.date, format: .dateTime.month().day().year())
+                        .accessibilityLabel(data.date.accessibilityDate)
+                }
+                .accessibilityElement(children: .combine)
             }
         }
         .navigationTitle(metric.title)
@@ -42,9 +53,7 @@ struct HealthDataListView: View {
         NavigationStack {
             Form {
                 DatePicker("Date", selection: $addDataDate, displayedComponents: .date)
-                HStack {
-                    Text(metric.title)
-                    Spacer()
+                LabeledContent(metric.title) {
                     TextField("Value", text: $valueToAdd)
                         .multilineTextAlignment(.trailing)
                         .frame(width: 150)
@@ -52,10 +61,29 @@ struct HealthDataListView: View {
                 }
             }
             .navigationTitle(metric.title)
+            .alert(isPresented: $isShowingAlert, error: writeError) { writeError in
+                switch writeError {
+                case .authNotDetermined, .noData, .unableToCompleteRequest:
+                    Button("Contact") {
+                        // try to open email app, unsure if this works, no email app on simulator
+                        UIApplication.shared.canOpenURL(URL(string: "message://benmorgiewicz@gmail.com")!)
+                    }
+                    Button("Cancel", role: .cancel) {}
+                case .sharingDenied(_):
+                    Button("Settings") {
+                        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                    }
+                    Button("Cancel", role: .cancel) {}
+                case .invalidValue:
+                    Button("OK", role: .cancel) {}
+                }
+            } message: { writeError in
+                Text(writeError.failureReason ?? "Failed to add Data.")
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add Data") {
-                        // Add Data Action
+                        addDataToHealthKit()
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {
@@ -66,11 +94,46 @@ struct HealthDataListView: View {
             }
         }
     }
-    
+    private func addDataToHealthKit() {
+        guard let value = Double(valueToAdd) else {
+            writeError = .invalidValue
+            isShowingAlert = true
+            valueToAdd = ""
+            return
+        }
+        Task {
+            do {
+                if isSteps {
+                    try await hkManager.addStepData(
+                        for: addDataDate,
+                        value: value
+                    )
+                    hkManager.stepData = try await hkManager.fetchStepCount()
+                } else {
+                    try await hkManager.addWeightData(
+                        for: addDataDate,
+                        value: value
+                    )
+                    async let weightsForLineChart = hkManager.fetchWeights(daysBack: 28)
+                    async let weightsForDiffBarChart = hkManager.fetchWeights(daysBack: 29)
+                    hkManager.weightData = try await weightsForLineChart
+                    hkManager.weightDiffData = try await weightsForDiffBarChart
+                }
+                isShowingAddData = false
+            } catch STError.sharingDenied(let quantityType) {
+                writeError = .sharingDenied(quantityType: quantityType)
+                isShowingAlert = true
+            } catch {
+                writeError = .unableToCompleteRequest
+                isShowingAlert = true
+            }
+        }
+    }
 }
 
 #Preview {
     NavigationStack {
-        HealthDataListView(metric: .steps, isSteps: true)
+        HealthDataListView(metric: .steps, isSteps: true, isShowingPermissionPriming: .constant(false))
+            .environment(HealthKitManager())
     }
 }
